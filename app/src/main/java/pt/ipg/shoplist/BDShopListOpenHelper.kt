@@ -14,7 +14,7 @@ class BDShopListOpenHelper(context: Context?)
      */
     override fun onCreate(db: SQLiteDatabase?) {
         if (db != null) {
-            //TabelaListaProdutos(db).cria()
+            TabelaListaProdutos(db).cria()
             //TabelaProdutos(db).cria()
         }
     }
