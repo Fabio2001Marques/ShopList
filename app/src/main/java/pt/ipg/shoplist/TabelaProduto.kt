@@ -9,7 +9,7 @@ class TabelaProduto(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_Tabela (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $NOME TEXT NOT NULL, $QUANTIDADE INTEGER NOT NULL, $PRECO_UNI REAL NOT NULL, $ID_LISTA INTEGER NOT NULL, Foreign KEY ($ID_LISTA) REFERENCES ${TabelaListaProdutos.NOME_Tabela})")
+        db.execSQL("CREATE TABLE $NOME_Tabela (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $NOME TEXT NOT NULL, $QUANTIDADE REAL NOT NULL, $PRECO_UNI REAL NOT NULL, $ID_LISTA INTEGER NOT NULL, Foreign KEY ($ID_LISTA) REFERENCES ${TabelaListaProdutos.NOME_Tabela})")
 
     }
 
