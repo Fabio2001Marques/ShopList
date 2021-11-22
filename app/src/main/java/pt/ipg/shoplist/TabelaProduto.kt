@@ -1,16 +1,15 @@
 package pt.ipg.shoplist
 
-
 import android.content.ContentValues
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 
-class TabelaListaProdutos(db: SQLiteDatabase) {
+class TabelaProduto(db: SQLiteDatabase) {
     private val db: SQLiteDatabase = db
 
     fun cria() {
-        db.execSQL("CREATE TABLE $NOME_Tabela (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $CAMPO_NOME TEXT NOT NULL, $PRECO_TOTAL REAL NOT NULL, $DATA_COMPRA TEXT)")
+        db.execSQL("CREATE TABLE $NOME_Tabela (${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, $NOME TEXT NOT NULL, $QUANTIDADE INTEGER NOT NULL, $PRECO_UNI REAL NOT NULL, $ID_LISTA INTEGER NOT NULL, Foreign KEY ($ID_LISTA) REFERENCES ${TabelaListaProdutos.NOME_Tabela})")
 
     }
 
@@ -37,15 +36,16 @@ class TabelaListaProdutos(db: SQLiteDatabase) {
         having: String?,
         orderBy: String?
     ): Cursor? {
-        return db.query(NOME_Tabela, columns, selection, selectionArgs, groupBy, having, orderBy)
+        return db.query(TabelaListaProdutos.NOME_Tabela, columns, selection, selectionArgs, groupBy, having, orderBy)
     }
 
     companion object{
-        const val NOME_Tabela = "Lista_Produtos"
-        const val CAMPO_NOME = "nome"
-        const val PRECO_TOTAL = "preco"
-        const val DATA_COMPRA = "data_compra"
-        val TODOS_CAMPOS = arrayOf(BaseColumns._ID, CAMPO_NOME, PRECO_TOTAL, DATA_COMPRA)
+        const val NOME_Tabela = "Produto"
+        const val NOME = "nome"
+        const val QUANTIDADE = "quantidade"
+        const val PRECO_UNI = "preco_uni"
+        const val ID_LISTA = "ID_lista"
+        const val CAMPO_EXTERNO_NOME_LISTA = "nome_lista"
+        val TODOS_CAMPOS = arrayOf(BaseColumns._ID, NOME, QUANTIDADE, PRECO_UNI, ID_LISTA, CAMPO_EXTERNO_NOME_LISTA)
     }
-
 }
