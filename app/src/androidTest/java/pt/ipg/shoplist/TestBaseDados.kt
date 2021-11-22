@@ -170,4 +170,57 @@ class TestBaseDados {
         db.close()
     }
 
+    fun consegueInserirProduto(){
+
+        val db = getBDShopListOpenHelper().writableDatabase
+
+        val lista = ListaProdutos(nome ="teste")
+        lista.id = insertListaProdutos(getTabelaListaProdutos(db), lista)
+
+        val produto = Produto(nome = "arroz", quantidade = 2f, precoUni = 0.76f, id_lista = lista.id, nomeLista = lista.nome)
+        produto.id = insertProduto(getTabelaProduto(db), produto)
+
+        assertEquals(produto, GetProdutosBd(getTabelaProduto(db), produto.id))
+
+
+        db.close()
+
+    }
+
+    @Test
+
+    fun consegueAlterarDoses() {
+
+        val db = getBDShopListOpenHelper().writableDatabase
+
+        val produto = Produto(nome = "arroz", quantidade = 2f, precoUni = 0.76f, id_lista = 1)
+        produto.id = insertProduto(getTabelaProduto(db), produto)
+        produto.precoUni = 2.0f
+
+        val registosAlterados = getTabelaProduto(db).update(
+            produto.toContentValues(),
+            "${BaseColumns._ID}=?",
+            arrayOf(produto.id.toString())
+        )
+
+        assertEquals(1, registosAlterados)
+
+        db.close()
+    }
+
+    @Test
+
+    fun consegueApagarDose() {
+
+        val db = getBDShopListOpenHelper().writableDatabase
+        val produto = Produto(nome = "arroz", quantidade = 2f, precoUni = 0.76f, id_lista = 1)
+        produto.id = insertProduto(getTabelaProduto(db), produto)
+
+        val registosApagados = getTabelaProduto(db).delete("${BaseColumns._ID}=?",arrayOf(produto.id.toString()))
+        assertEquals(1, registosApagados)
+
+        db.close()
+    }
+
+
 }
