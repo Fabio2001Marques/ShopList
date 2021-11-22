@@ -5,7 +5,7 @@ import android.database.Cursor
 import android.provider.BaseColumns
 
 
-data class ListaProdutos (var id: Long = -1, var nome: String, var precoTotal: Float? = null, var dataCompra: String? = null){
+data class ListaProdutos (var id: Long = -1, var nome: String, var precoTotal: Float = 0.0f, var dataCompra: String? = null){
 
     fun toContentValues() : ContentValues {
         val valores = ContentValues()
